@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    command: python3 app.py
+    volumes:
+      - ./app:/code/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - .env/postgres.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+
+volumes:
+  database-data:
+  binary_search:
