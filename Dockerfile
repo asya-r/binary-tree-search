@@ -12,3 +12,4 @@ RUN pip install -r /deps/requirements.txt
 
 # copy project
 COPY app /code
+COPY .env/postgres.env /code/postgres.env

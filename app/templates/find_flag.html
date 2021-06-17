@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Catch up</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 </head>
 <body>
-  <a href="{{ path + '/' + chl[0] }}"><-</a>
-  <a href="{{ path + '/' + chl[1] }}">-></a>
+{% if flag %}
+  <h1 class="flag">{{ flag }}</h1>
+{% else %}
+  <a class="move-btn" href="{{ path + '/' + chl[0] }}"><-</a>
+  <a class="move-btn" href="{{ path + '/' + chl[1] }}">-></a>
+{% endif %}
 </body>

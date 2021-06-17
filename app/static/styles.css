@@ -1,0 +1,43 @@
+body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.message, .flag {
+  color: #9C1A1C;
+  width: max-content;
+  height: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+}
+
+.start-btn {
+  background-color: goldenrod;
+  border: none;
+  color: white;
+  padding: 30px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.start-form {
+  padding-top: 90px;
+}
+
+.move-btn {
+  background-color: brown;
+  border: none;
+  color: white;
+  padding: 30px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 90px;
+}

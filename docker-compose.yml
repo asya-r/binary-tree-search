@@ -4,6 +4,8 @@ services:
   web:
     build: .
     command: python3 app.py
+    env_file:
+      - .env/postgres.env
     volumes:
       - ./app:/code/
     ports:

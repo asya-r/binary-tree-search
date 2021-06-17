@@ -3,20 +3,14 @@ import os
 import hashlib
 from datetime import datetime
 import secrets
-import config
+import time
 
 
 COMMON_NOT_SECRET = b"gviyvivwev"
-DEPTH = 50  # 62 is maximum for now (2048 is max url length)
+DEPTH = 5  # ~ 115 is maximum for now (2048 is max url length)
 
-
-# pg_db = PostgresqlDatabase(database=os.environ['POSTGRES_DB'], user=os.environ['POSTGRES_USER'],
-#                            password=os.environ['POSTGRES_PASSWORD'], host='localhost')
-
-pg_db = PostgresqlDatabase(database="dbase", user="dbuser",
-                           password="sbhBSHbj2d321", host='db')
-# pg_db = PostgresqlDatabase(database="dbase", user="dbuser",
-#                            password="sbhBSHbj2d321", host='0.0.0.0')
+pg_db = PostgresqlDatabase(database=os.environ.get('POSTGRES_DB'), user=os.environ.get('POSTGRES_USER'),
+                           password=os.environ.get('POSTGRES_PASSWORD'), host='db')
 
 
 def create_tables():
@@ -33,7 +27,7 @@ class BaseModel(Model):
 class Token(BaseModel):
     user_cookie = CharField(unique=True)
     secret = BlobField()
-    timestamp = TimestampField(default=datetime.timestamp(datetime.now()))
+    timestamp = TimestampField()
     flag_path = CharField()
 
 
@@ -50,11 +44,16 @@ def create_new_token(cookie: str):
     token.user_cookie = cookie
     token.secret = secret
     token.flag_path = generate_flag_path(secret)
+    token.timestamp = datetime.timestamp(datetime.now())
     token.save()
 
 
 def initialize_db():
-    with pg_db:
-        pg_db.create_tables([Token])
-        # pg_db.execute_sql(open("init.sql", "r").read())
+    try:
+        with pg_db:
+            pg_db.create_tables([Token])
+            # pg_db.execute_sql(open("init.sql", "r").read())
+    except:
+        time.sleep(3)
+        initialize_db()
 
